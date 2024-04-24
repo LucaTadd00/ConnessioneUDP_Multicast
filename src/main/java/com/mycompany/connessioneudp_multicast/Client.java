@@ -36,7 +36,7 @@ public class Client {
     bufferOUT = dato.getBytes();
     }
       
-    public void avvio() {
+    public void avvio() throws Exception {
         try {
         invia();
         ricevi();

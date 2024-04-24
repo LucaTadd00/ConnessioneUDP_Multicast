@@ -1,13 +1,17 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.mycompany.connessioneudp_multicast;
 
-/**
- *
- * @author asuf507zu4lp054w
- */
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+
+
 public class Server {
     
+    int porta = 4002;
+    int groupPort = 4001;
+    byte[] bufferIN = new byte[1024];
+    DatagramPacket sendPacket;
+    DatagramPacket receivePacket = null;
+    DatagramSocket serverSocket = null;
+    String received;
+    String send;
 }

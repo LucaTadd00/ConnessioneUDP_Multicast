@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.net.BindException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
-import java.net.InetAddress;
+import java.net.InetAddress; 
 import java.net.SocketException;
 import java.net.UnknownHostException;
 
@@ -14,6 +14,7 @@ public class MainServer {
 
     
     int porta = 4002;
+    int groupPort = 4001;
     byte[] bufferIN = new byte[1024];
     DatagramPacket sendPacket;
     DatagramPacket receivePacket = null;
@@ -50,7 +51,6 @@ public class MainServer {
                 System.out.println("Spedito messaggio al client: " + send);
                 
                 InetAddress groupAddress = InetAddress.getByName("239.255.255.250");
-                int groupPort = 4001;
                 
                 send = "Benvenuti a tutti! C'è un nuovo ingresso!";
                 sendPacket = new DatagramPacket(send.getBytes(), send.length(), groupAddress, groupPort);

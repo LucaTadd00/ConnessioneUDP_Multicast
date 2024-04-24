@@ -10,68 +10,9 @@ import java.net.UnknownHostException;
 
 public class MainClient {
 
-    public static void main(String[] args) {
-
-    
-    int porta = 4002;
-    int portaGroup = 4001;
-    byte[] bufferIN = new byte[1024];
-    byte[] bufferOUT = new byte[1024];
-    byte[] bufferING = new byte[1024];
-    DatagramPacket sendPacket;
-    DatagramPacket receivePacket = null;
-    DatagramSocket clientSocket = null;
-    MulticastSocket multiSocket = null;
-    String received;
-    String dato = "Richiesta connessione!";
-    bufferOUT = dato.getBytes();       
-      
-    
-        try {           
-            InetAddress IPServer = InetAddress.getByName("localhost");
-            clientSocket = new DatagramSocket();  
-                   
-            sendPacket =  new DatagramPacket(bufferOUT, bufferOUT.length, IPServer, porta);
-            System.out.println("Server trovato!!");
-            clientSocket.send(sendPacket);
-                    
-            System.out.println("Richiesta inviata al Server!!");
-            System.out.println("Preparazione per ricevere la risposta dal server.");
-
-            receivePacket =  new DatagramPacket(bufferIN, bufferIN.length);
-            clientSocket.receive(receivePacket);
-            received = new String(receivePacket.getData());
-        
-            int nCaratteri = receivePacket.getLength();
-            received = received.substring(0, nCaratteri);
-            System.out.println("Messaggio ricevuto dal server " + IPServer + ":" + porta + "\n\t" + received);
-            
-            multiSocket = new MulticastSocket(portaGroup);
-            InetAddress group = InetAddress.getByName("239.255.255.250");
-            multiSocket.joinGroup(group);
-            
-            receivePacket = new DatagramPacket(bufferING, bufferING.length);
-            clientSocket.receive(receivePacket); 
-            
-            received = new String(receivePacket.getData(),0, receivePacket.getLength());
-            
-            System.out.println("Lettura dei dati ricevuti dai partecipanti al gruppo");
-            System.out.println("Messaggio ricevuto dal gruppo " + group + ":" + portaGroup + "\n\t" + received);
-        
-        } catch (UnknownHostException ex) {                    
-            System.err.println("Errore di risoluzione");
-        } catch (SocketException e) {
-            System.out.println("errore nella risposta al server");
-            e.printStackTrace();
-        } catch (IOException e) {
-            System.out.println("errore generico nell'invio della risposta");
-        } finally{
-          if (clientSocket != null)
-              clientSocket.close();
-          if (multiSocket != null)
-              multiSocket.close();
-                }
-        
-    
+    public static void main(String[] args) throws Exception {
+     
+       Client client = new Client(4002, 4001);
+       client.avvio();
     }              
 }
